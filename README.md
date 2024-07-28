@@ -1,2 +1,2 @@
 # ReimbursementSystem
-Repo for all of my Spring Boot code used to create my Employee Reimbursement System
+Repo for all of my Java code using Spring to create my Employee Reimbursement System
