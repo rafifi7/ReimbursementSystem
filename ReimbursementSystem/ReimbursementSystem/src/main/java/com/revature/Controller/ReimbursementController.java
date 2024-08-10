@@ -41,8 +41,6 @@ public class ReimbursementController {
 
     @DeleteMapping("/{reimbId}")
     public ResponseEntity<Object> deleteReimbursementById(@PathVariable int reimbId) {
-
-
         rs.deleteReimbursementById(reimbId);
         return ResponseEntity.ok("Reimbursement with ID: " + reimbId + " was deleted");
     }
@@ -52,7 +50,28 @@ public class ReimbursementController {
         return ResponseEntity.ok(rs.getReimbursementsByUserId(userId));
     }
 
+    @GetMapping("/pending")
+    public ResponseEntity<List<Reimbursement>> getAllPendingReimbursements() {
+        return ResponseEntity.ok(rs.getAllPendingReimbursements());
+    }
 
+
+    @GetMapping("/pending/{userId}")
+    public ResponseEntity<List<Reimbursement>> getAllPendingReimbursementsByUserId(@PathVariable int userId) {
+        return ResponseEntity.ok(rs.getAllPendingReimbursementsByUserId(userId));
+    }
+
+    @PostMapping("/{reimbursementId}")
+    public ResponseEntity<Object> updateReimbursementDescription(
+            @RequestBody String description,
+            @PathVariable int reimbursementId) {
+
+        Reimbursement updatedReimbursement = rs.updateReimbursementDescription(description, reimbursementId);
+        if (updatedReimbursement == null) {
+            return ResponseEntity.status(404).body("Reimbursement not found with ID: " + reimbursementId);
+        }
+        return ResponseEntity.ok(updatedReimbursement);
+    }
 
 
 }

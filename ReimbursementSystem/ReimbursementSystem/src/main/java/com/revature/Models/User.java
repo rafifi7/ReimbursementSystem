@@ -21,8 +21,7 @@ public class User {
     @Column(name = "lastName", nullable = false, columnDefinition = "text")
     private String lastName;
 
-
-    @Column(nullable = false, unique = true, columnDefinition = "text check (length(username) > 5)")
+    @Column(nullable = false, unique = true, columnDefinition = "text")
     private String username;
 
     @Column(nullable = false, columnDefinition = "text")

@@ -22,6 +22,7 @@ public class ReimbursementService {
         this.uDAO = uDAO;
     }
 
+    //employee
     public Reimbursement addReimbursement(IncomingReimbursementDTO newReimbursement) {
         Reimbursement reimbursement = new Reimbursement(0, newReimbursement.getDescription(),
                 newReimbursement.getAmount(), newReimbursement.getStatus(), null);
@@ -45,14 +46,17 @@ public class ReimbursementService {
 
     }
 
+    //manager
     public List<Reimbursement> getAllReimbursements() {
         return rDAO.findAll();
     }
 
+    //employee
     public List<Reimbursement> getReimbursementsByUserId(int userId) {
         return rDAO.findByUserUserId(userId);
     }
 
+    //manager (honestly neither)
     public void deleteReimbursementById(int id) {
         //get reimbursement obj by id
         Reimbursement reimbursement = rDAO.findById(id).get();
@@ -61,6 +65,33 @@ public class ReimbursementService {
         // delete reimbursement
         rDAO.deleteById(id);
     }
+
+    //manager
+    public List<Reimbursement> getAllPendingReimbursements() {
+        return rDAO.findByStatus("pending");
+    }
+
+    //employee
+    public List<Reimbursement> getAllPendingReimbursementsByUserId(int userId) {
+        return rDAO.findByUserUserIdAndStatus(userId, "pending");
+    }
+
+    //employee
+    public Reimbursement updateReimbursementDescription(String description, int reimbursementId) {
+        Optional<Reimbursement> optionalReimbursement = rDAO.findById(reimbursementId);
+
+        if (optionalReimbursement.isPresent()) {
+            Reimbursement reimbursement = optionalReimbursement.get();
+            reimbursement.setDescription(description);
+            return rDAO.save(reimbursement);
+        } else {
+            return null;
+        }
+    }
+
+
+
+
 
 
 

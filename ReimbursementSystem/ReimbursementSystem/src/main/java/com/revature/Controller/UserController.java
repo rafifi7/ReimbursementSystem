@@ -46,6 +46,17 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable int userId) {
+        User deleteUser = us.deleteUser(userId);
+
+        if (deleteUser == null) {
+            return ResponseEntity.status(400).body("User not found with ID: " + userId);
+        } else {
+            return ResponseEntity.ok(deleteUser);
+        }
+    }
+
 
 
 

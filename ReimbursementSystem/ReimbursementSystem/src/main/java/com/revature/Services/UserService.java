@@ -1,5 +1,6 @@
 package com.revature.Services;
 
+import com.revature.DAOs.ReimbursementDAO;
 import com.revature.DAOs.UserDAO;
 import com.revature.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,24 @@ import java.util.Optional;
 public class UserService {
 
     private UserDAO userDAO;
+    private ReimbursementDAO reimbursementDAO;
 
 
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, ReimbursementDAO reimbursementDAO) {
         this.userDAO = userDAO;
+        this.reimbursementDAO = reimbursementDAO;
     }
 
 
     public User registerUser(User newUser) {
-        User u = userDAO.save(newUser);
-        return u;
+        if (userDAO.findByUsername(newUser.getUsername()) != null) {
+            System.out.println("Username already Exists!");
+            return null;
+        } else {
+            User u = userDAO.save(newUser);
+            return u;
+        }
     }
 
 
@@ -67,6 +75,25 @@ public class UserService {
             return null;
         }
     }
+
+    public User deleteUser(int userId) {
+        Optional<User> userOptional = userDAO.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            // Delete all user's reimbursements
+            reimbursementDAO.deleteAll(user.getReimbursements());
+
+            // Delete user
+            userDAO.deleteById(userId);
+
+            return user;
+        } else {
+            // Handle user not found (e.g., throw exception)
+            return null;
+        }
+    }
+
 
 
 

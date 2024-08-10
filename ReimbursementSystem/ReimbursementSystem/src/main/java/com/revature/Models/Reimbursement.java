@@ -12,17 +12,17 @@ public class Reimbursement {
     @Column (name = "reimbId")
     private int reimbId;
 
-    @Column(columnDefinition = "text check (length(description) < 40)")
+    @Column
     private String description;
 
     @Column
     private int amount;
 
-    @Column(nullable = false, columnDefinition = "text default 'pending'")
-    private String status;
+    @Column(nullable = false)
+    private String status = "pending";
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
 
