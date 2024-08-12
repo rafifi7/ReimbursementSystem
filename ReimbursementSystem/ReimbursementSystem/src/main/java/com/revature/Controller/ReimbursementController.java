@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reimbursements")
+@CrossOrigin
 public class ReimbursementController {
     private ReimbursementService rs;
     private UserDAO uDAO;
@@ -61,12 +62,24 @@ public class ReimbursementController {
         return ResponseEntity.ok(rs.getAllPendingReimbursementsByUserId(userId));
     }
 
-    @PostMapping("/{reimbursementId}")
+    @PostMapping("/updateDescription/{reimbursementId}")
     public ResponseEntity<Object> updateReimbursementDescription(
             @RequestBody String description,
             @PathVariable int reimbursementId) {
 
         Reimbursement updatedReimbursement = rs.updateReimbursementDescription(description, reimbursementId);
+        if (updatedReimbursement == null) {
+            return ResponseEntity.status(404).body("Reimbursement not found with ID: " + reimbursementId);
+        }
+        return ResponseEntity.ok(updatedReimbursement);
+    }
+
+    @PostMapping("/updateStatus/{reimbursementId}")
+    public ResponseEntity<Object> updateReimbursementStatus(
+            @RequestBody String status,
+            @PathVariable int reimbursementId) {
+
+        Reimbursement updatedReimbursement = rs.updateReimbursementStatus(status, reimbursementId);
         if (updatedReimbursement == null) {
             return ResponseEntity.status(404).body("Reimbursement not found with ID: " + reimbursementId);
         }

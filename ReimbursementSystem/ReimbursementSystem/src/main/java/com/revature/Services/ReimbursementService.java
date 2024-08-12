@@ -89,6 +89,19 @@ public class ReimbursementService {
         }
     }
 
+    //manager
+    public Reimbursement updateReimbursementStatus(String status, int reimbursementId) {
+        Optional<Reimbursement> optionalReimbursement = rDAO.findById(reimbursementId);
+
+        if (optionalReimbursement.isPresent()) {
+            Reimbursement reimbursement = optionalReimbursement.get();
+            reimbursement.setStatus(status);
+            return rDAO.save(reimbursement);
+        } else {
+            return null;
+        }
+    }
+
 
 
 

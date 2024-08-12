@@ -1,26 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "../App.css";
+import { store } from '../globalData/store';
 
-interface NavbarProps {
-  userType: string; // Define the type of user
-}
+const Navbar: React.FC = () => {
+    const userType = store.loggedInUser.role; // Get the userType from the global store
 
-const Navbar: React.FC<NavbarProps> = ({ userType }) => {
     return (
       <nav className="navbar">
         <div className="navbar-container">
-          <Link to="/" className="navbar-brand">
+          <Link to="/home" className="navbar-brand">
             Employee Reimbursement
           </Link>
           <div className="navbar-links">
-            <Link to="/">Home</Link>
-            {userType === 'Manager' && <Link to="/users">Users</Link>}
-            <Link to="/reimbursements">Reimbursements</Link>
+            <Link to="/home">Home</Link>
+
+            {userType === 'manager' && (
+              <>
+              <Link to="/listUsers">All Users</Link>
+              <Link to="/listReimbursements">All Reimbursements</Link>
+              <Link to="/pendingReimbursements">Pending Reimbursements</Link>
+              </>
+            )}
+            
+            {userType !== 'manager' && (
+              <>
+              <Link to="/myReimbursements">My Reimbursements</Link>
+              <Link to="/myPendingReimbursements">My Pending Reimbursements</Link>
+              </>
+            )}
+
+            <Link to="/login">Logout</Link>
+
           </div>
         </div>
       </nav>
     );
 };
-
 
 export default Navbar;

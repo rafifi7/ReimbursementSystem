@@ -56,10 +56,10 @@ public class UserService {
     }
 
     public User promoteUser(int userId) {
-        return changeUserRole(userId, "Manager");
+        return changeUserRole("manager", userId);
     }
 
-    public User changeUserRole(int userId, String role) {
+    public User changeUserRole(String role, int userId) {
         Optional <User> existingUser = userDAO.findById(userId);
 
         if (existingUser.isPresent()) {
