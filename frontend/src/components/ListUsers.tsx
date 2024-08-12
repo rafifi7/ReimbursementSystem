@@ -105,7 +105,6 @@ const ListUsers: React.FC = () => {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Username</th>
-              <th>Password</th>
               <th>Role</th>
               <th>Actions</th> {/* New column for actions */}
             </tr>
@@ -117,7 +116,6 @@ const ListUsers: React.FC = () => {
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.username}</td>
-                <td>{user.password}</td>
                 <td>{user.role}</td>
                 <td>
                   {/* Conditionally render buttons only if it's not the logged-in user */}

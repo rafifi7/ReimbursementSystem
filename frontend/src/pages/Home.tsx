@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   if (role == 'manager') {
     x = "view and manage all users and their reimbursements.";
   } else {
-    x ='submit, view, and update descriptions your own reimbursements'
+    x ='submit, view, and update descriptions of your own reimbursements'
   }
 
 

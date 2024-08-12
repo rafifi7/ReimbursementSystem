@@ -26,6 +26,7 @@ const CreateReimbursement: React.FC = () => {
           },
         });
         console.log("Reimbursement created successfully!");
+        alert("Reimbursement created successfully!");
         setShowModal(false); // Close the modal after creation
       } catch (error) {
         console.error("There was an error creating the reimbursement!", error);

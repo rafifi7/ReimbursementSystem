@@ -47,6 +47,12 @@ const CreateAccount: React.FC = () => {
       alert("Please fill out all required fields!");
       return;
     }
+
+    if (username.length < 6) {
+      alert("Please create a username with more than 5 characters");
+      return;
+    }
+
     // const check = await axios.get(http://localhost:3001/users/{username});
     //if (check) {
     //  

@@ -69,6 +69,13 @@ public class UserController {
         }
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<Object> getUserByUsername(@PathVariable String username) {
+        User findUser = us.getUserByUsername(username);
+
+        return ResponseEntity.ok(findUser);
+    }
+
 
 
 
